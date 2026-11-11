@@ -5,13 +5,13 @@
     style="@style/Widget.AscendU.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp">
+    android:layout_marginBottom="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/stitch_card_padding">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,13 +26,13 @@
                 android:layout_height="wrap_content"
                 android:minWidth="0dp"
                 android:minHeight="0dp"
-                app:buttonTint="@color/neu_primary_violet" />
+                app:buttonTint="@color/stitch_primary" />
 
             <!-- Title & Time -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -40,35 +40,35 @@
                     android:id="@+id/tv_timeline_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Morning Physical Training"
-                    android:textColor="@color/neu_text_primary"
-                    android:textSize="@dimen/text_subtitle"
-                    android:textStyle="bold" />
+                    android:textColor="@color/stitch_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:text="Deep Focus Study Block" />
 
                 <TextView
                     android:id="@+id/tv_timeline_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="08:00 AM - 09:30 AM"
-                    android:textColor="@color/neu_text_secondary"
-                    android:textSize="@dimen/text_body_secondary" />
+                    android:textColor="@color/stitch_text_secondary"
+                    android:textSize="@dimen/text_body_secondary"
+                    tools:text="08:00 AM - 09:30 AM" />
             </LinearLayout>
 
-            <!-- Status Badge (Done / Upcoming / Missed) -->
+            <!-- Status Badge (Done / Active / Upcoming / Missed) -->
             <TextView
                 android:id="@+id/tv_timeline_status_badge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_neu_badge_pill"
+                android:background="@drawable/bg_stitch_badge_neutral"
                 android:paddingStart="10dp"
                 android:paddingTop="4dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="4dp"
-                android:text="Upcoming"
-                android:textColor="@color/neu_primary_violet_dark"
-                android:textSize="@dimen/text_caption"
-                android:textStyle="bold" />
+                android:textColor="@color/stitch_primary"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                tools:text="Active" />
         </LinearLayout>
 
         <!-- Category & Badges Row -->
@@ -83,14 +83,14 @@
                 android:id="@+id/tv_timeline_importance_badge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_neu_badge_pill"
+                android:background="@drawable/bg_stitch_badge_warning"
                 android:paddingStart="8dp"
                 android:paddingTop="2dp"
                 android:paddingEnd="8dp"
                 android:paddingBottom="2dp"
                 android:text="High Impact"
-                android:textColor="@color/neu_primary_violet_dark"
-                android:textSize="@dimen/text_caption"
+                android:textColor="@color/stitch_tertiary_variant"
+                android:textSize="10sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
@@ -99,28 +99,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:background="@drawable/bg_neu_inset"
+                android:background="@drawable/bg_stitch_chip_inactive"
                 android:paddingStart="8dp"
                 android:paddingTop="2dp"
                 android:paddingEnd="8dp"
                 android:paddingBottom="2dp"
-                android:text="Recurring Habit"
-                android:textColor="@color/neu_text_secondary"
-                android:textSize="@dimen/text_caption" />
+                android:textColor="@color/stitch_text_secondary"
+                android:textSize="10sp"
+                tools:text="Habit" />
 
             <TextView
                 android:id="@+id/tv_timeline_category_badge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:background="@drawable/bg_neu_inset"
+                android:background="@drawable/bg_stitch_chip_inactive"
                 android:paddingStart="8dp"
                 android:paddingTop="2dp"
                 android:paddingEnd="8dp"
                 android:paddingBottom="2dp"
-                android:text="Discipline"
-                android:textColor="@color/neu_text_secondary"
-                android:textSize="@dimen/text_caption" />
+                android:textColor="@color/stitch_text_secondary"
+                android:textSize="10sp"
+                tools:text="Study" />
         </LinearLayout>
 
     </LinearLayout>

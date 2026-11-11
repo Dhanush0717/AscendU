@@ -219,21 +219,20 @@ public class TodayFragment extends Fragment implements TodayTimelineAdapter.OnTi
         // 4. Update timeline adapter
         timelineAdapter.submitList(timelineList);
         int totalItems = timelineList.size();
-        binding.tvTimelineCount.setText(totalItems + (totalItems == 1 ? " Scheduled" : " Scheduled"));
 
         // Empty state visibility
         if (totalItems == 0) {
-            binding.cardEmptyToday.setVisibility(View.VISIBLE);
+            binding.llEmptyState.setVisibility(View.VISIBLE);
             binding.rvTodayTimeline.setVisibility(View.GONE);
         } else {
-            binding.cardEmptyToday.setVisibility(View.GONE);
+            binding.llEmptyState.setVisibility(View.GONE);
             binding.rvTodayTimeline.setVisibility(View.VISIBLE);
         }
 
         // 5. Update Task Counts Summary
-        binding.tvCountCompleted.setText(completedCount + " Completed");
-        binding.tvCountPending.setText(pendingCount + " Pending");
-        binding.tvCountMissed.setText(missedCount + " Missed");
+        binding.tvCompletedCount.setText(completedCount + " Done");
+        binding.tvPendingCount.setText(pendingCount + " Pending");
+        binding.tvMissedCount.setText(missedCount + " Missed");
 
         // 6. Update Daily Discipline Progress (based on eligible recurring commitments)
         if (totalRecurringEligible > 0) {

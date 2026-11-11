@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ascendu.app.R;
-import com.ascendu.app.data.local.entity.Task;
 import com.ascendu.app.databinding.ItemTodayTimelineBinding;
 import com.ascendu.app.util.DateUtils;
 
 /**
  * RecyclerView Adapter for Today's chronological timeline.
- * Handles both recurring commitments and one-time tasks.
+ * Stitch Redesign System: Clear status badges, distinct completed/pending states,
+ * and Plus Jakarta Sans text styling.
  */
 public class TodayTimelineAdapter extends ListAdapter<TodayTimelineItem, TodayTimelineAdapter.TimelineViewHolder> {
 
@@ -116,25 +116,25 @@ public class TodayTimelineAdapter extends ListAdapter<TodayTimelineItem, TodayTi
             binding.cbTimelineComplete.setOnCheckedChangeListener(null);
             binding.cbTimelineComplete.setChecked(item.isCompleted());
 
-            // Visual Status styling
+            // Stitch System Status styling
             if (item.isCompleted()) {
                 binding.tvTimelineTitle.setPaintFlags(binding.tvTimelineTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                binding.tvTimelineTitle.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.neu_text_secondary));
+                binding.tvTimelineTitle.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.stitch_text_muted));
                 binding.tvTimelineStatusBadge.setText("Completed");
-                binding.tvTimelineStatusBadge.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.neu_status_success));
-                binding.tvTimelineStatusBadge.setBackgroundResource(R.drawable.bg_neu_inset);
+                binding.tvTimelineStatusBadge.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.stitch_secondary_variant));
+                binding.tvTimelineStatusBadge.setBackgroundResource(R.drawable.bg_stitch_badge_success);
             } else if (item.isMissed()) {
                 binding.tvTimelineTitle.setPaintFlags(binding.tvTimelineTitle.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-                binding.tvTimelineTitle.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.neu_text_primary));
+                binding.tvTimelineTitle.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.stitch_text_primary));
                 binding.tvTimelineStatusBadge.setText("Missed");
-                binding.tvTimelineStatusBadge.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.neu_status_missed));
-                binding.tvTimelineStatusBadge.setBackgroundResource(R.drawable.bg_neu_badge_pill);
+                binding.tvTimelineStatusBadge.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.stitch_error_variant));
+                binding.tvTimelineStatusBadge.setBackgroundResource(R.drawable.bg_stitch_badge_error);
             } else {
                 binding.tvTimelineTitle.setPaintFlags(binding.tvTimelineTitle.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-                binding.tvTimelineTitle.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.neu_text_primary));
+                binding.tvTimelineTitle.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.stitch_text_primary));
                 binding.tvTimelineStatusBadge.setText("Upcoming");
-                binding.tvTimelineStatusBadge.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.neu_primary_violet_dark));
-                binding.tvTimelineStatusBadge.setBackgroundResource(R.drawable.bg_neu_badge_pill);
+                binding.tvTimelineStatusBadge.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.stitch_primary));
+                binding.tvTimelineStatusBadge.setBackgroundResource(R.drawable.bg_stitch_badge_neutral);
             }
 
             // Interactive completion toggle
