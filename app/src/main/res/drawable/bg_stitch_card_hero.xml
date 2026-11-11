@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base Card Container -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/stitch_surface" />
+            <corners android:radius="@dimen/stitch_corner_hero" />
+            <stroke
+                android:width="@dimen/stitch_stroke_subtle"
+                android:color="@color/stitch_outline_subtle" />
+        </shape>
+    </item>
+    <!-- Left Accent Strip (3dp width) -->
+    <item
+        android:left="0dp"
+        android:top="4dp"
+        android:bottom="4dp"
+        android:width="4dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/stitch_primary" />
+            <corners
+                android:topLeftRadius="4dp"
+                android:bottomLeftRadius="4dp" />
+        </shape>
+    </item>
+</layer-list>

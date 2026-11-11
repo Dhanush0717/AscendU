@@ -1,71 +1,85 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base Application Theme: Modern Soft Neumorphism + Minimalist Productivity UI (Dark) -->
+    <!-- Base Application Theme: Material 3 + AscendU Stitch Design System (Dark) -->
     <style name="Base.Theme.AscendU" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Brand Colors -->
-        <item name="colorPrimary">@color/neu_dark_primary_violet</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <item name="colorPrimaryContainer">@color/neu_dark_accent_tint</item>
-        <item name="colorOnPrimaryContainer">@color/neu_dark_text_primary</item>
+        <item name="colorPrimary">@color/stitch_primary</item>
+        <item name="colorOnPrimary">@color/stitch_on_primary</item>
+        <item name="colorPrimaryContainer">@color/stitch_primary_tint</item>
+        <item name="colorOnPrimaryContainer">@color/stitch_text_primary</item>
 
-        <item name="colorSecondary">@color/neu_secondary_purple</item>
-        <item name="colorOnSecondary">@color/white</item>
-        <item name="colorSecondaryContainer">@color/neu_dark_surface_inset</item>
+        <item name="colorSecondary">@color/stitch_secondary</item>
+        <item name="colorOnSecondary">@color/stitch_on_secondary</item>
+        <item name="colorSecondaryContainer">@color/stitch_secondary_tint</item>
 
-        <!-- Surfaces and Backgrounds (Deep Charcoal with Soft Raised Highlights) -->
-        <item name="android:windowBackground">@color/neu_dark_background</item>
-        <item name="colorSurface">@color/neu_dark_surface</item>
-        <item name="colorOnSurface">@color/neu_dark_text_primary</item>
-        <item name="colorSurfaceVariant">@color/neu_dark_accent_tint</item>
-        <item name="colorOnSurfaceVariant">@color/neu_dark_text_secondary</item>
-        <item name="colorOutline">@color/neu_dark_outline</item>
+        <item name="colorTertiary">@color/stitch_tertiary</item>
+        <item name="colorOnTertiary">@color/stitch_on_tertiary</item>
+        <item name="colorTertiaryContainer">@color/stitch_tertiary_tint</item>
+
+        <item name="colorError">@color/stitch_error</item>
+        <item name="colorOnError">@color/stitch_on_error</item>
+        <item name="colorErrorContainer">@color/stitch_error_tint</item>
+
+        <!-- Surfaces and Backgrounds (Deep Obsidian / Layered Dark) -->
+        <item name="android:windowBackground">@color/stitch_background</item>
+        <item name="colorSurface">@color/stitch_surface</item>
+        <item name="colorOnSurface">@color/stitch_text_primary</item>
+        <item name="colorSurfaceVariant">@color/stitch_surface_subtle</item>
+        <item name="colorOnSurfaceVariant">@color/stitch_text_secondary</item>
+        <item name="colorOutline">@color/stitch_outline_subtle</item>
 
         <!-- Status Bar & Navigation Bar -->
         <item name="android:statusBarColor">@color/transparent</item>
         <item name="android:navigationBarColor">@color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
+
+        <!-- Typography Font Family -->
+        <item name="fontFamily">@font/plus_jakarta_sans</item>
+        <item name="android:fontFamily">@font/plus_jakarta_sans</item>
     </style>
 
     <style name="Theme.AscendU" parent="Base.Theme.AscendU" />
 
-    <!-- Neumorphic Dark Elevated Card Styles -->
+    <!-- Stitch Elevated Dark Card Style (16dp Radius) -->
     <style name="Widget.AscendU.Card" parent="Widget.Material3.CardView.Elevated">
-        <item name="cardCornerRadius">@dimen/neu_corner_card</item>
-        <item name="cardElevation">@dimen/neu_elevation_card</item>
-        <item name="strokeWidth">1dp</item>
-        <item name="strokeColor">@color/neu_dark_highlight</item>
-        <item name="cardBackgroundColor">@color/neu_dark_surface</item>
+        <item name="cardCornerRadius">@dimen/stitch_corner_card</item>
+        <item name="cardElevation">@dimen/stitch_elevation_card</item>
+        <item name="strokeWidth">@dimen/stitch_stroke_subtle</item>
+        <item name="strokeColor">@color/stitch_outline_subtle</item>
+        <item name="cardBackgroundColor">@color/stitch_surface</item>
     </style>
 
     <style name="Widget.AscendU.Card.Hero" parent="Widget.AscendU.Card">
-        <item name="cardCornerRadius">@dimen/neu_corner_hero</item>
-        <item name="cardElevation">@dimen/neu_elevation_hero</item>
-        <item name="strokeWidth">1dp</item>
-        <item name="strokeColor">@color/neu_dark_highlight</item>
-        <item name="cardBackgroundColor">@color/neu_dark_accent_tint</item>
+        <item name="cardCornerRadius">@dimen/stitch_corner_hero</item>
+        <item name="cardElevation">@dimen/stitch_elevation_hero</item>
+        <item name="strokeWidth">@dimen/stitch_stroke_subtle</item>
+        <item name="strokeColor">@color/stitch_outline_subtle</item>
+        <item name="cardBackgroundColor">@color/stitch_surface</item>
     </style>
 
     <style name="Widget.AscendU.Button.Pill" parent="Widget.Material3.Button">
-        <item name="cornerRadius">@dimen/neu_corner_pill</item>
-        <item name="elevation">3dp</item>
-        <item name="backgroundTint">@color/neu_dark_primary_violet</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="cornerRadius">@dimen/stitch_corner_pill</item>
+        <item name="elevation">2dp</item>
+        <item name="backgroundTint">@color/stitch_primary</item>
+        <item name="android:textColor">@color/stitch_on_primary</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:letterSpacing">0.02</item>
+        <item name="android:fontFamily">@font/plus_jakarta_sans</item>
+        <item name="android:letterSpacing">0.01</item>
     </style>
 
     <style name="Widget.AscendU.Button.Pill.Tonal" parent="Widget.Material3.Button.TonalButton">
-        <item name="cornerRadius">@dimen/neu_corner_pill</item>
-        <item name="elevation">2dp</item>
-        <item name="backgroundTint">@color/neu_dark_surface</item>
-        <item name="android:textColor">@color/neu_dark_primary_violet</item>
+        <item name="cornerRadius">@dimen/stitch_corner_pill</item>
+        <item name="elevation">0dp</item>
+        <item name="backgroundTint">@color/stitch_primary_tint</item>
+        <item name="android:textColor">@color/stitch_primary</item>
         <item name="android:textStyle">bold</item>
-        <item name="strokeWidth">1dp</item>
-        <item name="strokeColor">@color/neu_dark_highlight</item>
+        <item name="android:fontFamily">@font/plus_jakarta_sans</item>
+        <item name="strokeWidth">@dimen/stitch_stroke_subtle</item>
+        <item name="strokeColor">@color/stitch_outline_subtle</item>
     </style>
 
     <style name="Widget.AscendU.BottomNavIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/neu_dark_accent_tint</item>
-        <item name="android:width">48dp</item>
+        <item name="android:color">@color/stitch_primary_tint</item>
+        <item name="android:width">56dp</item>
         <item name="android:height">32dp</item>
     </style>
 </resources>

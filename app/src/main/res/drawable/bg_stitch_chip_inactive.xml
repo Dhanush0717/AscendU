@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/stitch_surface_subtle" />
+    <corners android:radius="@dimen/stitch_corner_pill" />
+    <stroke
+        android:width="@dimen/stitch_stroke_subtle"
+        android:color="@color/stitch_outline_subtle" />
+    <padding
+        android:left="12dp"
+        android:top="6dp"
+        android:right="12dp"
+        android:bottom="6dp" />
+</shape>

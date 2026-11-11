@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Spacing System -->
+    <!-- Spacing System (8dp Grid System) -->
     <dimen name="spacing_xxs">2dp</dimen>
     <dimen name="spacing_xs">4dp</dimen>
     <dimen name="spacing_s">8dp</dimen>
@@ -10,27 +10,53 @@
     <dimen name="spacing_xl">24dp</dimen>
     <dimen name="spacing_xxl">32dp</dimen>
 
-    <!-- Corner Radii for Soft Neumorphism -->
-    <dimen name="neu_corner_small">14dp</dimen>
-    <dimen name="neu_corner_card">22dp</dimen>
-    <dimen name="neu_corner_hero">28dp</dimen>
-    <dimen name="neu_corner_pill">32dp</dimen>
+    <!-- Stitch System Spacing Tokens -->
+    <dimen name="stitch_gutter">16dp</dimen>
+    <dimen name="stitch_margin">16dp</dimen>
+    <dimen name="stitch_card_padding">16dp</dimen>
 
-    <!-- Elevations (Soft, non-aggressive diffusion) -->
-    <dimen name="neu_elevation_flat">0dp</dimen>
-    <dimen name="neu_elevation_card">4dp</dimen>
-    <dimen name="neu_elevation_hero">6dp</dimen>
-    <dimen name="neu_elevation_floating_dock">10dp</dimen>
+    <!-- Stitch Corner Radii Tokens -->
+    <dimen name="stitch_corner_sm">4dp</dimen>
+    <dimen name="stitch_corner_cell">8dp</dimen>
+    <dimen name="stitch_corner_input">12dp</dimen>
+    <dimen name="stitch_corner_card">16dp</dimen>
+    <dimen name="stitch_corner_hero">20dp</dimen>
+    <dimen name="stitch_corner_pill">9999dp</dimen>
 
-    <!-- Stroke width -->
-    <dimen name="neu_stroke_subtle">1dp</dimen>
+    <!-- Consistency Matrix Cell Dimensions -->
+    <dimen name="stitch_cell_size">32dp</dimen>
+    <dimen name="stitch_cell_spacing">4dp</dimen>
 
-    <!-- Typography Text Sizes -->
+    <!-- Boundary Strokes & Elevation -->
+    <dimen name="stitch_stroke_subtle">1dp</dimen>
+    <dimen name="stitch_stroke_active">2dp</dimen>
+    <dimen name="stitch_elevation_card">1dp</dimen>
+    <dimen name="stitch_elevation_hero">3dp</dimen>
+    <dimen name="stitch_elevation_floating">6dp</dimen>
+
+    <!-- Button Dimensions -->
+    <dimen name="stitch_button_height">48dp</dimen>
+    <dimen name="stitch_button_pill_height">40dp</dimen>
+    <dimen name="stitch_button_icon_size">20dp</dimen>
+
+    <!-- Typography Text Sizes (Plus Jakarta Sans) -->
     <dimen name="text_caption">11sp</dimen>
-    <dimen name="text_body_secondary">13sp</dimen>
+    <dimen name="text_body_secondary">12sp</dimen>
     <dimen name="text_body">14sp</dimen>
     <dimen name="text_subtitle">16sp</dimen>
     <dimen name="text_title">18sp</dimen>
-    <dimen name="text_headline">24sp</dimen>
-    <dimen name="text_display">30sp</dimen>
+    <dimen name="text_headline">20sp</dimen>
+    <dimen name="text_headline_lg">24sp</dimen>
+    <dimen name="text_display">32sp</dimen>
+
+    <!-- Legacy Compatibility Mappings -->
+    <dimen name="neu_corner_small">@dimen/stitch_corner_input</dimen>
+    <dimen name="neu_corner_card">@dimen/stitch_corner_card</dimen>
+    <dimen name="neu_corner_hero">@dimen/stitch_corner_hero</dimen>
+    <dimen name="neu_corner_pill">@dimen/stitch_corner_pill</dimen>
+    <dimen name="neu_elevation_flat">0dp</dimen>
+    <dimen name="neu_elevation_card">@dimen/stitch_elevation_card</dimen>
+    <dimen name="neu_elevation_hero">@dimen/stitch_elevation_hero</dimen>
+    <dimen name="neu_elevation_floating_dock">@dimen/stitch_elevation_floating</dimen>
+    <dimen name="neu_stroke_subtle">@dimen/stitch_stroke_subtle</dimen>
 </resources>

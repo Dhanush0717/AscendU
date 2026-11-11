@@ -1,27 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Dark Mode Base Overrides -->
-    <color name="neu_background">@color/neu_dark_background</color>
-    <color name="neu_surface">@color/neu_dark_surface</color>
-    <color name="neu_surface_inset">@color/neu_dark_surface_inset</color>
-    <color name="neu_light_highlight">@color/neu_dark_highlight</color>
-    <color name="neu_dark_shadow">@color/neu_dark_shadow_deep</color>
-    <color name="neu_outline_subtle">@color/neu_dark_outline</color>
+    <!-- ======================================================== -->
+    <!-- STITCH SYSTEM DESIGN TOKENS (DARK THEME)                -->
+    <!-- Project: AscendU Redesign System (5617786173306949825)   -->
+    <!-- ======================================================== -->
 
-    <color name="neu_text_primary">@color/neu_dark_text_primary</color>
-    <color name="neu_text_secondary">@color/neu_dark_text_secondary</color>
-    <color name="neu_text_tertiary">@color/neu_dark_text_tertiary</color>
+    <!-- Primary Accent: Soft Violet for dark backgrounds -->
+    <color name="stitch_primary">#9B84DB</color>
+    <color name="stitch_primary_variant">#818CF8</color>
+    <color name="stitch_primary_dark">#C4B5FD</color>
+    <color name="stitch_primary_tint">#2C2546</color>
+    <color name="stitch_primary_tint_light">#231D3A</color>
+    <color name="stitch_on_primary">#0F0A2A</color>
 
-    <color name="neu_primary_violet">@color/neu_dark_primary_violet</color>
-    <color name="neu_primary_violet_dark">#BCA7F5</color>
-    <color name="neu_primary_violet_light">#C8B8F8</color>
-    <color name="neu_accent_tint">@color/neu_dark_accent_tint</color>
+    <!-- Secondary Accent: Emerald Green (Distinguishable in dark mode) -->
+    <color name="stitch_secondary">#34D399</color>
+    <color name="stitch_secondary_variant">#059669</color>
+    <color name="stitch_secondary_tint">#132E23</color>
+    <color name="stitch_on_secondary">#002113</color>
 
-    <!-- Semantic states stay clear and soft in dark mode -->
-    <color name="neu_status_success">#55C592</color>
-    <color name="neu_status_success_tint">#1B3327</color>
-    <color name="neu_status_missed">#F07D7D</color>
-    <color name="neu_status_missed_tint">#381F22</color>
-    <color name="neu_status_warning">#E6AA5C</color>
-    <color name="neu_status_warning_tint">#3B2C1C</color>
+    <!-- Tertiary Accent: Vibrant Amber -->
+    <color name="stitch_tertiary">#FBBF24</color>
+    <color name="stitch_tertiary_variant">#D97706</color>
+    <color name="stitch_tertiary_tint">#3B2A10</color>
+    <color name="stitch_on_tertiary">#2A1700</color>
+
+    <!-- Error / Missed Semantic -->
+    <color name="stitch_error">#FB7185</color>
+    <color name="stitch_error_variant">#E11D48</color>
+    <color name="stitch_error_tint">#3D141C</color>
+    <color name="stitch_on_error">#4C0519</color>
+
+    <!-- Dark Mode Surfaces: Deep Obsidian / Charcoal with layered depth -->
+    <color name="stitch_background">#111019</color>
+    <color name="stitch_surface">#1A1826</color>
+    <color name="stitch_surface_subtle">#232034</color>
+    <color name="stitch_surface_container">#28253D</color>
+    <color name="stitch_surface_container_high">#322E4D</color>
+
+    <!-- Outlines & Boundaries -->
+    <color name="stitch_outline_subtle">#2E2A45</color>
+    <color name="stitch_outline">#4B466A</color>
+    <color name="stitch_outline_strong">#716A99</color>
+
+    <!-- Typography: High-contrast Crisp White & Muted Lilac-Greys -->
+    <color name="stitch_text_primary">#F5F3FF</color>
+    <color name="stitch_text_secondary">#A5A1C0</color>
+    <color name="stitch_text_tertiary">#757095</color>
+    <color name="stitch_text_muted">#595574</color>
+
+    <!-- Consistency Matrix Cell States (Dark Mode) -->
+    <color name="stitch_cell_completed">#34D399</color>
+    <color name="stitch_cell_completed_border">#10B981</color>
+    <color name="stitch_cell_missed">#FB7185</color>
+    <color name="stitch_cell_missed_bg">#3D141C</color>
+    <color name="stitch_cell_rest">#28253D</color>
+    <color name="stitch_cell_future">#1E1C2B</color>
+    <color name="stitch_cell_today_ring">#9B84DB</color>
+
+    <!-- Compatibility mappings for dark mode -->
+    <color name="neu_background">@color/stitch_background</color>
+    <color name="neu_surface">@color/stitch_surface</color>
+    <color name="neu_surface_inset">@color/stitch_surface_subtle</color>
+    <color name="neu_light_highlight">#2B273E</color>
+    <color name="neu_dark_shadow">#0A0910</color>
+    <color name="neu_outline_subtle">@color/stitch_outline_subtle</color>
+
+    <color name="neu_text_primary">@color/stitch_text_primary</color>
+    <color name="neu_text_secondary">@color/stitch_text_secondary</color>
+    <color name="neu_text_tertiary">@color/stitch_text_tertiary</color>
+
+    <color name="neu_primary_violet">@color/stitch_primary</color>
+    <color name="neu_primary_violet_dark">#C4B5FD</color>
+    <color name="neu_primary_violet_light">#DDD6FE</color>
+    <color name="neu_secondary_purple">#818CF8</color>
+    <color name="neu_accent_tint">@color/stitch_primary_tint</color>
+
+    <color name="neu_status_success">@color/stitch_secondary</color>
+    <color name="neu_status_success_tint">@color/stitch_secondary_tint</color>
+    <color name="neu_status_missed">@color/stitch_error</color>
+    <color name="neu_status_missed_tint">@color/stitch_error_tint</color>
+    <color name="neu_status_warning">@color/stitch_tertiary</color>
+    <color name="neu_status_warning_tint">@color/stitch_tertiary_tint</color>
+
+    <color name="background_lavender">@color/stitch_background</color>
+    <color name="surface_white">@color/stitch_surface</color>
+    <color name="surface_card">@color/stitch_surface</color>
+    <color name="outline_subtle">@color/stitch_outline_subtle</color>
+    <color name="text_primary">@color/stitch_text_primary</color>
+    <color name="text_secondary">@color/stitch_text_secondary</color>
+    <color name="text_tertiary">@color/stitch_text_tertiary</color>
 </resources>
