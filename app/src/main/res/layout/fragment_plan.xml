@@ -2,17 +2,18 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/plan_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/neu_background"
+    android:background="@color/stitch_background"
     android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:paddingBottom="240dp">
+        android:padding="16dp"
+        android:paddingBottom="24dp">
 
         <!-- Top Header & Action -->
         <LinearLayout
@@ -31,8 +32,8 @@
                     android:id="@+id/tv_plan_date_subtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Blueprint &amp; Commitments"
-                    android:textColor="@color/neu_text_secondary"
+                    android:text="System Architecture"
+                    android:textColor="@color/stitch_text_secondary"
                     android:textSize="@dimen/text_body" />
 
                 <TextView
@@ -40,46 +41,171 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:text="Plan"
-                    android:textColor="@color/neu_text_primary"
-                    android:textSize="@dimen/text_display"
+                    android:textColor="@color/stitch_text_primary"
+                    android:textSize="@dimen/text_headline_lg"
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_add_action"
-                style="@style/Widget.AscendU.Button.Pill"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+ Add" />
-        </LinearLayout>
-
-        <!-- Quick Action Buttons Row -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
-
+            <!-- Quick Action Pills (+ Habit, + One-Time) -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_add_recurring"
                 style="@style/Widget.AscendU.Button.Pill.Tonal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
-                android:layout_weight="1"
-                android:text="🔁 + Habit" />
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:minHeight="0dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="+ Habit"
+                android:textSize="12sp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_add_task"
-                style="@style/Widget.AscendU.Button.Pill.Tonal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_weight="1"
-                android:text="📅 + One-Time" />
+                style="@style/Widget.AscendU.Button.Pill"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_marginStart="8dp"
+                android:minHeight="0dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="+ One-Time"
+                android:textSize="12sp" />
         </LinearLayout>
 
-        <!-- Section 1: Recurring Core Commitments -->
+        <!-- Stitch Plan Trajectory Mini-Banner -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.AscendU.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/stitch_card_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⚡"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="High Focus Trajectory"
+                        android:textColor="@color/stitch_text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Non-negotiable blocks protect your time and energy."
+                        android:textColor="@color/stitch_text_secondary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_active_ratio_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_stitch_badge_neutral"
+                    android:textColor="@color/stitch_primary"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    tools:text="92% Target" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Section 1: Recurring Core Commitments Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Recurring Core Commitments"
+                android:textColor="@color/stitch_text_primary"
+                android:textSize="@dimen/text_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_recurring_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_stitch_badge_neutral"
+                android:paddingStart="10dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="3dp"
+                android:textColor="@color/stitch_primary"
+                android:textSize="@dimen/text_caption"
+                android:textStyle="bold"
+                tools:text="3 Active" />
+        </LinearLayout>
+
+        <!-- RecyclerView for Recurring Commitments -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_recurring_tasks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_recurring_task" />
+
+        <!-- Empty state for recurring -->
+        <LinearLayout
+            android:id="@+id/card_empty_recurring"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_stitch_card"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔄"
+                android:textSize="28sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="No recurring commitments"
+                android:textColor="@color/stitch_text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Tap + Habit to build your recurring routine."
+                android:textColor="@color/stitch_text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Section 2: One-Time Tasks Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,85 +217,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Recurring Core Commitments"
-                android:textColor="@color/neu_text_primary"
-                android:textSize="@dimen/text_title"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_recurring_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_neu_badge_pill"
-                android:paddingStart="10dp"
-                android:paddingTop="3dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="3dp"
-                android:text="0 Active"
-                android:textColor="@color/neu_primary_violet_dark"
-                android:textSize="@dimen/text_caption"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- RecyclerView for Recurring Commitments -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_recurring_commitments"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:nestedScrollingEnabled="false"
-            tools:itemCount="2"
-            tools:listitem="@layout/item_recurring_task" />
-
-        <!-- Empty State for Recurring Commitments -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_recurring_empty"
-            style="@style/Widget.AscendU.Card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="24dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="No Recurring Habits Configured"
-                    android:textColor="@color/neu_text_primary"
-                    android:textSize="@dimen/text_subtitle"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="Add your daily disciplines (study, fitness, coding) to build your consistency arc."
-                    android:textColor="@color/neu_text_secondary"
-                    android:textSize="@dimen/text_body_secondary" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Section 2: One-Time Tasks -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="One-Time Scheduled Tasks"
-                android:textColor="@color/neu_text_primary"
+                android:text="Scheduled One-Time Tasks"
+                android:textColor="@color/stitch_text_primary"
                 android:textSize="@dimen/text_title"
                 android:textStyle="bold" />
 
@@ -177,9 +226,15 @@
                 android:id="@+id/tv_tasks_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0 Tasks"
-                android:textColor="@color/neu_text_secondary"
-                android:textSize="@dimen/text_body_secondary" />
+                android:background="@drawable/bg_stitch_badge_neutral"
+                android:paddingStart="10dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="3dp"
+                android:textColor="@color/stitch_primary"
+                android:textSize="@dimen/text_caption"
+                android:textStyle="bold"
+                tools:text="2 Tasks" />
         </LinearLayout>
 
         <!-- RecyclerView for One-Time Tasks -->
@@ -187,45 +242,46 @@
             android:id="@+id/rv_one_time_tasks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:nestedScrollingEnabled="false"
             tools:itemCount="2"
             tools:listitem="@layout/item_one_time_task" />
 
-        <!-- Empty State for One-Time Tasks -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_tasks_empty"
-            style="@style/Widget.AscendU.Card"
+        <!-- Empty state for one-time tasks -->
+        <LinearLayout
+            android:id="@+id/card_empty_tasks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_stitch_card"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp"
             android:visibility="gone">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="24dp">
+                android:text="📅"
+                android:textSize="28sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="No One-Time Tasks Scheduled"
-                    android:textColor="@color/neu_text_primary"
-                    android:textSize="@dimen/text_subtitle"
-                    android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="No scheduled one-time tasks"
+                android:textColor="@color/stitch_text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="Schedule specific targets, milestones, assignments or deadlines."
-                    android:textColor="@color/neu_text_secondary"
-                    android:textSize="@dimen/text_body_secondary" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Tap + One-Time to schedule a task or assignment."
+                android:textColor="@color/stitch_text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

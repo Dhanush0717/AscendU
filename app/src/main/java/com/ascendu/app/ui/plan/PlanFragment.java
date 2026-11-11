@@ -63,8 +63,8 @@ public class PlanFragment extends Fragment implements
     private void setupRecyclerViews() {
         // Recurring Commitments
         recurringAdapter = new RecurringTaskAdapter(this);
-        binding.rvRecurringCommitments.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.rvRecurringCommitments.setAdapter(recurringAdapter);
+        binding.rvRecurringTasks.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.rvRecurringTasks.setAdapter(recurringAdapter);
 
         // One-Time Tasks
         oneTimeTaskAdapter = new OneTimeTaskAdapter(this);
@@ -73,8 +73,6 @@ public class PlanFragment extends Fragment implements
     }
 
     private void setupActionButtons() {
-        binding.btnAddAction.setOnClickListener(v -> showAddChoiceDialog());
-
         binding.btnAddRecurring.setOnClickListener(v -> {
             AddEditRecurringBottomSheet sheet = AddEditRecurringBottomSheet.newInstance(0);
             sheet.show(getChildFragmentManager(), "AddRecurringBottomSheet");
@@ -112,11 +110,11 @@ public class PlanFragment extends Fragment implements
             binding.tvRecurringCount.setText(count + " Active");
 
             if (count == 0) {
-                binding.cardRecurringEmpty.setVisibility(View.VISIBLE);
-                binding.rvRecurringCommitments.setVisibility(View.GONE);
+                binding.cardEmptyRecurring.setVisibility(View.VISIBLE);
+                binding.rvRecurringTasks.setVisibility(View.GONE);
             } else {
-                binding.cardRecurringEmpty.setVisibility(View.GONE);
-                binding.rvRecurringCommitments.setVisibility(View.VISIBLE);
+                binding.cardEmptyRecurring.setVisibility(View.GONE);
+                binding.rvRecurringTasks.setVisibility(View.VISIBLE);
             }
         });
 
@@ -129,10 +127,10 @@ public class PlanFragment extends Fragment implements
             binding.tvTasksCount.setText(count + (count == 1 ? " Task" : " Tasks"));
 
             if (count == 0) {
-                binding.cardTasksEmpty.setVisibility(View.VISIBLE);
+                binding.cardEmptyTasks.setVisibility(View.VISIBLE);
                 binding.rvOneTimeTasks.setVisibility(View.GONE);
             } else {
-                binding.cardTasksEmpty.setVisibility(View.GONE);
+                binding.cardEmptyTasks.setVisibility(View.GONE);
                 binding.rvOneTimeTasks.setVisibility(View.VISIBLE);
             }
         });

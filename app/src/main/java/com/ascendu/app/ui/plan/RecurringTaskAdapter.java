@@ -78,19 +78,17 @@ public class RecurringTaskAdapter extends ListAdapter<RecurringTask, RecurringTa
                 timeWindow = " • " + DateUtils.format12HourTime(task.getStartTime()) +
                         " - " + DateUtils.format12HourTime(task.getEndTime());
             }
-            binding.tvRecurringSchedule.setText(days + timeWindow);
+            binding.tvRecurringTimeAndDays.setText(days + timeWindow);
 
             // Category badge
             String cat = task.getCategory();
             binding.tvRecurringCategoryBadge.setText(cat != null && !cat.isEmpty() ? cat : "General");
 
-            // Importance marker & accent bar
+            // Importance marker
             if (task.isImportant()) {
-                binding.tvRecurringPriorityBadge.setVisibility(View.VISIBLE);
-                binding.viewImportanceAccent.setVisibility(View.VISIBLE);
+                binding.tvRecurringImportantBadge.setVisibility(View.VISIBLE);
             } else {
-                binding.tvRecurringPriorityBadge.setVisibility(View.GONE);
-                binding.viewImportanceAccent.setVisibility(View.INVISIBLE);
+                binding.tvRecurringImportantBadge.setVisibility(View.GONE);
             }
 
             // Active toggle switch

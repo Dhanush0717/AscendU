@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="@dimen/stitch_card_padding">
 
         <!-- Checkbox with subtle haptic feel -->
         <com.google.android.material.checkbox.MaterialCheckBox
@@ -21,12 +21,12 @@
             android:layout_height="wrap_content"
             android:minWidth="0dp"
             android:minHeight="0dp"
-            app:buttonTint="@color/neu_primary_violet" />
+            app:buttonTint="@color/stitch_primary" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -34,19 +34,19 @@
                 android:id="@+id/tv_task_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Submit MCA Architecture Design Document"
-                android:textColor="@color/neu_text_primary"
-                android:textSize="@dimen/text_subtitle"
-                android:textStyle="bold" />
+                android:textColor="@color/stitch_text_primary"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:text="Submit MCA Architecture Design Document" />
 
             <TextView
                 android:id="@+id/tv_task_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="Today • 16:00 - 17:30"
-                android:textColor="@color/neu_text_secondary"
-                android:textSize="@dimen/text_body_secondary" />
+                android:textColor="@color/stitch_text_secondary"
+                android:textSize="@dimen/text_body_secondary"
+                tools:text="Today • 16:00 - 17:30" />
 
             <!-- Badges -->
             <LinearLayout
@@ -59,14 +59,14 @@
                     android:id="@+id/tv_task_importance_badge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_neu_badge_pill"
+                    android:background="@drawable/bg_stitch_badge_warning"
                     android:paddingStart="8dp"
                     android:paddingTop="2dp"
                     android:paddingEnd="8dp"
                     android:paddingBottom="2dp"
                     android:text="Important"
-                    android:textColor="@color/neu_primary_violet_dark"
-                    android:textSize="@dimen/text_caption"
+                    android:textColor="@color/stitch_tertiary_variant"
+                    android:textSize="10sp"
                     android:textStyle="bold"
                     android:visibility="gone" />
 
@@ -75,26 +75,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:background="@drawable/bg_neu_inset"
+                    android:background="@drawable/bg_stitch_chip_inactive"
                     android:paddingStart="8dp"
                     android:paddingTop="2dp"
                     android:paddingEnd="8dp"
                     android:paddingBottom="2dp"
-                    android:text="Technical"
-                    android:textColor="@color/neu_text_secondary"
-                    android:textSize="@dimen/text_caption" />
+                    android:textColor="@color/stitch_text_secondary"
+                    android:textSize="10sp"
+                    tools:text="Technical" />
             </LinearLayout>
         </LinearLayout>
 
         <!-- Edit/Menu Icon -->
         <ImageView
             android:id="@+id/btn_edit_task"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_stitch_chip_inactive"
+            android:contentDescription="Edit"
             android:padding="6dp"
             android:src="@drawable/ic_chevron_right"
-            app:tint="@color/neu_text_secondary" />
+            app:tint="@color/stitch_text_secondary" />
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>
