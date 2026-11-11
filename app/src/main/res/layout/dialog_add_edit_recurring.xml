@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/neu_surface"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Top Drag Pill -->
+        <View
+            android:layout_width="48dp"
+            android:layout_height="5dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_neu_inset" />
+
+        <TextView
+            android:id="@+id/tv_sheet_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Core Commitment"
+            android:textColor="@color/neu_text_primary"
+            android:textSize="@dimen/text_title"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Recurring daily discipline habit that repeats on scheduled weekdays."
+            android:textColor="@color/neu_text_secondary"
+            android:textSize="@dimen/text_body_secondary" />
+
+        <!-- Title Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_recurring_title"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            app:boxBackgroundColor="@color/neu_background"
+            app:boxCornerRadiusBottomEnd="@dimen/neu_corner_small"
+            app:boxCornerRadiusBottomStart="@dimen/neu_corner_small"
+            app:boxCornerRadiusTopEnd="@dimen/neu_corner_small"
+            app:boxCornerRadiusTopStart="@dimen/neu_corner_small"
+            app:boxStrokeColor="@color/neu_primary_violet">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_recurring_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Habit Title (e.g. Morning Workout)"
+                android:inputType="textCapSentences"
+                android:maxLines="1"
+                android:textColor="@color/neu_text_primary" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Category Selector -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Category"
+            android:textColor="@color/neu_text_primary"
+            android:textSize="@dimen/text_body"
+            android:textStyle="bold" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_cat_focus"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Focus &amp; Study" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_cat_discipline"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Discipline &amp; Fitness" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_cat_mastery"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coding &amp; Mastery" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_cat_reflection"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reflection" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- Time Range Pickers -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Scheduled Time Window"
+            android:textColor="@color/neu_text_primary"
+            android:textSize="@dimen/text_body"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_recurring_start_time"
+                style="@style/Widget.AscendU.Button.Pill.Tonal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:text="Start: 08:00 AM" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_recurring_end_time"
+                style="@style/Widget.AscendU.Button.Pill.Tonal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:text="End: 09:30 AM" />
+        </LinearLayout>
+
+        <!-- Weekday Chips -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Repeat On"
+            android:textColor="@color/neu_text_primary"
+            android:textSize="@dimen/text_body"
+            android:textStyle="bold" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_recurring_days"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_rec_mon"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Mon" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_rec_tue"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Tue" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_rec_wed"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Wed" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_rec_thu"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Thu" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_rec_fri"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Fri" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_rec_sat"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sat" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_rec_sun"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sun" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- Important Task Switch -->
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switch_recurring_important"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:checked="true"
+            android:text="Mark as High Impact / Important Task"
+            android:textColor="@color/neu_text_primary" />
+
+        <!-- Bottom Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_delete_recurring"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Archive"
+                android:textColor="@color/neu_status_missed"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_save_recurring"
+                style="@style/Widget.AscendU.Button.Pill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="130dp"
+                android:text="Save Habit" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

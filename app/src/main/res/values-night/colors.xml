@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark Mode Base Overrides -->
+    <color name="neu_background">@color/neu_dark_background</color>
+    <color name="neu_surface">@color/neu_dark_surface</color>
+    <color name="neu_surface_inset">@color/neu_dark_surface_inset</color>
+    <color name="neu_light_highlight">@color/neu_dark_highlight</color>
+    <color name="neu_dark_shadow">@color/neu_dark_shadow_deep</color>
+    <color name="neu_outline_subtle">@color/neu_dark_outline</color>
+
+    <color name="neu_text_primary">@color/neu_dark_text_primary</color>
+    <color name="neu_text_secondary">@color/neu_dark_text_secondary</color>
+    <color name="neu_text_tertiary">@color/neu_dark_text_tertiary</color>
+
+    <color name="neu_primary_violet">@color/neu_dark_primary_violet</color>
+    <color name="neu_primary_violet_dark">#BCA7F5</color>
+    <color name="neu_primary_violet_light">#C8B8F8</color>
+    <color name="neu_accent_tint">@color/neu_dark_accent_tint</color>
+
+    <!-- Semantic states stay clear and soft in dark mode -->
+    <color name="neu_status_success">#55C592</color>
+    <color name="neu_status_success_tint">#1B3327</color>
+    <color name="neu_status_missed">#F07D7D</color>
+    <color name="neu_status_missed_tint">#381F22</color>
+    <color name="neu_status_warning">#E6AA5C</color>
+    <color name="neu_status_warning_tint">#3B2C1C</color>
+</resources>

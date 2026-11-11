@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/bg_nav_dock">
+
+    <!-- Top Handle Bar -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_pill_badge"
+        android:backgroundTint="@color/outline_subtle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Focus &amp; Work Session"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="Execute without interruption. Track pure focused effort."
+        android:textSize="13sp"
+        android:textColor="@color/text_secondary" />
+
+    <!-- Elapsed Time Counter Display -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginVertical="16dp"
+        android:padding="20dp"
+        android:background="@drawable/bg_pill_badge"
+        android:backgroundTint="@color/primary_purple_light">
+
+        <TextView
+            android:id="@+id/tv_timer_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_timer_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Ready to begin"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="@color/light_lavender" />
+    </LinearLayout>
+
+    <!-- Subject Input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_session_subject"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxStrokeColor="@color/primary_purple"
+        android:hint="Subject / Topic (e.g., Dynamic Programming / System Design)">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_session_subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Session Type Chips -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Session Type"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_secondary" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_marginTop="6dp">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_session_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_type_study"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                app:chipCornerRadius="14dp"
+                android:text="Deep Work" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_type_coding"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipCornerRadius="14dp"
+                android:text="Implementation" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_type_dsa"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipCornerRadius="14dp"
+                android:text="Problem Solving" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_type_revision"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipCornerRadius="14dp"
+                android:text="Deliberate Practice" />
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
+
+    <!-- Timer Control Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_start_pause_timer"
+            style="@style/Widget.AscendU.Button.Pill"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="6dp"
+            android:text="Start Timer"
+            app:backgroundTint="@color/primary_purple"
+            android:textColor="@color/white" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_finish_save_session"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:layout_marginStart="6dp"
+            app:cornerRadius="26dp"
+            android:text="Save &amp; Complete"
+            app:strokeColor="@color/primary_purple"
+            android:textColor="@color/primary_purple" />
+    </LinearLayout>
+
+</LinearLayout>

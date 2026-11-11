@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/neu_surface"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Bottom sheet drag handle -->
+    <View
+        android:layout_width="48dp"
+        android:layout_height="5dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_neu_inset" />
+
+    <TextView
+        android:id="@+id/tv_detail_date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wednesday, November 11"
+        android:textColor="@color/neu_text_secondary"
+        android:textSize="@dimen/text_body_secondary" />
+
+    <TextView
+        android:id="@+id/tv_detail_task_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="Morning Physical Training"
+        android:textColor="@color/neu_text_primary"
+        android:textSize="@dimen/text_title"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_detail_schedule_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Scheduled: 08:00 - 09:30"
+        android:textColor="@color/neu_text_secondary"
+        android:textSize="@dimen/text_caption" />
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.AscendU.Card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <View
+                android:id="@+id/view_detail_status_dot"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/bg_cell_completed" />
+
+            <TextView
+                android:id="@+id/tv_detail_status_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:text="Status: Completed"
+                android:textColor="@color/neu_text_primary"
+                android:textSize="@dimen/text_body"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_detail_completed_at"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="at 08:45"
+                android:textColor="@color/neu_text_secondary"
+                android:textSize="@dimen/text_caption" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_detail_close"
+        style="@style/Widget.AscendU.Button.Pill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Close" />
+</LinearLayout>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/neu_surface"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Top Drag Pill -->
+        <View
+            android:layout_width="48dp"
+            android:layout_height="5dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_neu_inset" />
+
+        <TextView
+            android:id="@+id/tv_sheet_task_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New One-Time Task"
+            android:textColor="@color/neu_text_primary"
+            android:textSize="@dimen/text_title"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="A discrete activity scheduled for a specific date and deadline."
+            android:textColor="@color/neu_text_secondary"
+            android:textSize="@dimen/text_body_secondary" />
+
+        <!-- Title Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_task_title"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            app:boxBackgroundColor="@color/neu_background"
+            app:boxCornerRadiusBottomEnd="@dimen/neu_corner_small"
+            app:boxCornerRadiusBottomStart="@dimen/neu_corner_small"
+            app:boxCornerRadiusTopEnd="@dimen/neu_corner_small"
+            app:boxCornerRadiusTopStart="@dimen/neu_corner_small"
+            app:boxStrokeColor="@color/neu_primary_violet">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_task_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Task Title (e.g. Complete Project Report)"
+                android:inputType="textCapSentences"
+                android:maxLines="1"
+                android:textColor="@color/neu_text_primary" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Description Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_task_desc"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:boxBackgroundColor="@color/neu_background"
+            app:boxCornerRadiusBottomEnd="@dimen/neu_corner_small"
+            app:boxCornerRadiusBottomStart="@dimen/neu_corner_small"
+            app:boxCornerRadiusTopEnd="@dimen/neu_corner_small"
+            app:boxCornerRadiusTopStart="@dimen/neu_corner_small"
+            app:boxStrokeColor="@color/neu_primary_violet">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_task_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Notes / Details (Optional)"
+                android:inputType="textMultiLine"
+                android:maxLines="3"
+                android:textColor="@color/neu_text_primary" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Date Selector Button -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Scheduled Date"
+            android:textColor="@color/neu_text_primary"
+            android:textSize="@dimen/text_body"
+            android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_pick_task_date"
+            style="@style/Widget.AscendU.Button.Pill.Tonal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="📅 Date: Today" />
+
+        <!-- Time Range / Deadline Buttons -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Scheduled Time Window"
+            android:textColor="@color/neu_text_primary"
+            android:textSize="@dimen/text_body"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_task_start_time"
+                style="@style/Widget.AscendU.Button.Pill.Tonal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:text="Start: 10:00 AM" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_task_end_time"
+                style="@style/Widget.AscendU.Button.Pill.Tonal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:text="Deadline: 11:30 AM" />
+        </LinearLayout>
+
+        <!-- Category Selector -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Category"
+            android:textColor="@color/neu_text_primary"
+            android:textSize="@dimen/text_body"
+            android:textStyle="bold" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_task_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_task_work"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Technical &amp; Work" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_task_acad"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Academics" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_task_personal"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Personal" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- Important Task Switch -->
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switch_task_important"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:checked="false"
+            android:text="Mark as High Impact / Important Task"
+            android:textColor="@color/neu_text_primary" />
+
+        <!-- Bottom Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_delete_task"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delete"
+                android:textColor="@color/neu_status_missed"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_save_task"
+                style="@style/Widget.AscendU.Button.Pill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="130dp"
+                android:text="Save Target" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

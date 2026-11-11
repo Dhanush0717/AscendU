@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/bg_nav_dock">
+
+    <!-- Top Handle Bar -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_pill_badge"
+        android:backgroundTint="@color/outline_subtle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Daily Non-Negotiable"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="A daily commitment that resets every morning to forge discipline."
+        android:textSize="13sp"
+        android:textColor="@color/text_secondary" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_routine_title"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxStrokeColor="@color/primary_purple"
+        android:hint="Routine Name (e.g. 60m Deep Focus Work)">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_routine_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Category -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Pillar"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_secondary" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_marginTop="6dp">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_routine_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_cat_focus"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                app:chipCornerRadius="14dp"
+                android:text="Focus &amp; Work" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_cat_mastery"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipCornerRadius="14dp"
+                android:text="Skill Mastery" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_cat_discipline"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipCornerRadius="14dp"
+                android:text="Physical Discipline" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_cat_reflection"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipCornerRadius="14dp"
+                android:text="Daily Retrospective" />
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
+
+    <!-- Target Minutes -->
+    <TextView
+        android:id="@+id/tv_routine_minutes_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Target Commitment: 30 mins"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_secondary" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slider_routine_minutes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:value="30"
+        android:valueFrom="10"
+        android:valueTo="120"
+        android:stepSize="5"
+        app:thumbColor="@color/primary_purple"
+        app:trackColorActive="@color/primary_purple"
+        app:trackColorInactive="@color/primary_purple_light" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save_routine"
+        style="@style/Widget.AscendU.Button.Pill"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
+        android:text="Add to Daily Blueprint"
+        app:backgroundTint="@color/primary_purple"
+        android:textColor="@color/white" />
+
+</LinearLayout>

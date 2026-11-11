@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_today">
+
+    <fragment
+        android:id="@+id/nav_today"
+        android:name="com.ascendu.app.ui.today.TodayFragment"
+        android:label="Today"
+        tools:layout="@layout/fragment_today" />
+
+    <fragment
+        android:id="@+id/nav_plan"
+        android:name="com.ascendu.app.ui.plan.PlanFragment"
+        android:label="Plan"
+        tools:layout="@layout/fragment_plan" />
+
+    <fragment
+        android:id="@+id/nav_my_arc"
+        android:name="com.ascendu.app.ui.myarc.MyArcFragment"
+        android:label="My Arc"
+        tools:layout="@layout/fragment_my_arc" />
+
+</navigation>

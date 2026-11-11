@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Spacing System -->
+    <dimen name="spacing_xxs">2dp</dimen>
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_s">8dp</dimen>
+    <dimen name="spacing_m">12dp</dimen>
+    <dimen name="spacing_base">16dp</dimen>
+    <dimen name="spacing_l">20dp</dimen>
+    <dimen name="spacing_xl">24dp</dimen>
+    <dimen name="spacing_xxl">32dp</dimen>
+
+    <!-- Corner Radii for Soft Neumorphism -->
+    <dimen name="neu_corner_small">14dp</dimen>
+    <dimen name="neu_corner_card">22dp</dimen>
+    <dimen name="neu_corner_hero">28dp</dimen>
+    <dimen name="neu_corner_pill">32dp</dimen>
+
+    <!-- Elevations (Soft, non-aggressive diffusion) -->
+    <dimen name="neu_elevation_flat">0dp</dimen>
+    <dimen name="neu_elevation_card">4dp</dimen>
+    <dimen name="neu_elevation_hero">6dp</dimen>
+    <dimen name="neu_elevation_floating_dock">10dp</dimen>
+
+    <!-- Stroke width -->
+    <dimen name="neu_stroke_subtle">1dp</dimen>
+
+    <!-- Typography Text Sizes -->
+    <dimen name="text_caption">11sp</dimen>
+    <dimen name="text_body_secondary">13sp</dimen>
+    <dimen name="text_body">14sp</dimen>
+    <dimen name="text_subtitle">16sp</dimen>
+    <dimen name="text_title">18sp</dimen>
+    <dimen name="text_headline">24sp</dimen>
+    <dimen name="text_display">30sp</dimen>
+</resources>

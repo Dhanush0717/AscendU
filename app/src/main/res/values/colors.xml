@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base Primitive Colors -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- ======================================================== -->
+    <!-- NEUMORPHIC SOFT PALETTE - LIGHT MODE                     -->
+    <!-- ======================================================== -->
+    <!-- Background: Soft soothing lavender-grey -->
+    <color name="neu_background">#EAE7F2</color>
+    <!-- Elevated surface base: Slightly lighter than background for extruded soft feel -->
+    <color name="neu_surface">#F2EFF9</color>
+    <color name="neu_surface_inset">#DFDCE8</color>
+    
+    <!-- Highlights & Subtle Soft Shadows -->
+    <color name="neu_light_highlight">#FFFFFFFF</color>
+    <color name="neu_dark_shadow">#D0CBDC</color>
+    <color name="neu_outline_subtle">#E2DEEE</color>
+
+    <!-- Typography: Deep Navy & Muted Grey -->
+    <color name="neu_text_primary">#1C1A35</color>
+    <color name="neu_text_secondary">#6E6A8A</color>
+    <color name="neu_text_tertiary">#9B97B5</color>
+
+    <!-- Accents: Deep Violet & Muted Purple -->
+    <color name="neu_primary_violet">#674FA3</color>
+    <color name="neu_primary_violet_dark">#523D8A</color>
+    <color name="neu_primary_violet_light">#866DC2</color>
+    <color name="neu_secondary_purple">#8C7DAE</color>
+    <color name="neu_accent_tint">#E2DBF5</color>
+
+    <!-- Semantic States: Soft Green (Success) & Soft Coral Red (Missed) -->
+    <color name="neu_status_success">#48A97E</color>
+    <color name="neu_status_success_tint">#E1F5EC</color>
+    <color name="neu_status_missed">#E26868</color>
+    <color name="neu_status_missed_tint">#FDECEC</color>
+    <color name="neu_status_warning">#DF9A45</color>
+    <color name="neu_status_warning_tint">#FCF2E4</color>
+
+    <!-- ======================================================== -->
+    <!-- NEUMORPHIC SOFT PALETTE - DARK MODE                      -->
+    <!-- ======================================================== -->
+    <color name="neu_dark_background">#16151E</color>
+    <color name="neu_dark_surface">#1F1D2B</color>
+    <color name="neu_dark_surface_inset">#12111A</color>
+    <color name="neu_dark_highlight">#2B283C</color>
+    <color name="neu_dark_shadow_deep">#0C0B12</color>
+    <color name="neu_dark_outline">#2A273C</color>
+
+    <color name="neu_dark_text_primary">#F4F3F9</color>
+    <color name="neu_dark_text_secondary">#9E9AB7</color>
+    <color name="neu_dark_text_tertiary">#66637E</color>
+    <color name="neu_dark_primary_violet">#9B84DB</color>
+    <color name="neu_dark_accent_tint">#2C2546</color>
+
+    <!-- Compatibility mappings for existing resources -->
+    <color name="primary_purple">@color/neu_primary_violet</color>
+    <color name="primary_purple_light">@color/neu_primary_violet_light</color>
+    <color name="deep_purple">@color/neu_primary_violet_dark</color>
+    <color name="deep_purple_dark">#3C2A69</color>
+    <color name="light_lavender">@color/neu_accent_tint</color>
+    <color name="secondary_lavender">#DAD3F0</color>
+    <color name="tint_lavender">#EEEAF9</color>
+
+    <color name="pastel_purple">@color/neu_accent_tint</color>
+    <color name="pastel_purple_bg">@color/neu_accent_tint</color>
+    <color name="pastel_purple_accent">@color/neu_primary_violet</color>
+
+    <color name="pastel_rose">@color/neu_status_missed_tint</color>
+    <color name="pastel_rose_bg">@color/neu_status_missed_tint</color>
+    <color name="pastel_rose_accent">@color/neu_status_missed</color>
+
+    <color name="pastel_amber">@color/neu_status_warning_tint</color>
+    <color name="pastel_amber_bg">@color/neu_status_warning_tint</color>
+    <color name="pastel_amber_accent">@color/neu_status_warning</color>
+
+    <color name="pastel_cyan">#E5EFFB</color>
+    <color name="pastel_cyan_bg">#E5EFFB</color>
+    <color name="pastel_cyan_accent">#5484B8</color>
+
+    <color name="background_lavender">@color/neu_background</color>
+    <color name="surface_white">@color/neu_surface</color>
+    <color name="surface_card">@color/neu_surface</color>
+    <color name="outline_subtle">@color/neu_outline_subtle</color>
+    <color name="outline_card">@color/neu_outline_subtle</color>
+    <color name="text_primary">@color/neu_text_primary</color>
+    <color name="text_secondary">@color/neu_text_secondary</color>
+    <color name="text_tertiary">@color/neu_text_tertiary</color>
+    <color name="primary_purple_deep">@color/neu_primary_violet_dark</color>
+
+    <color name="status_success">@color/neu_status_success</color>
+    <color name="status_warning">@color/neu_status_warning</color>
+    <color name="status_error">@color/neu_status_missed</color>
+    <color name="status_info">@color/neu_primary_violet</color>
+    <color name="status_purple">@color/neu_primary_violet</color>
+
+    <color name="background_dark">@color/neu_dark_background</color>
+    <color name="surface_dark">@color/neu_dark_surface</color>
+    <color name="surface_container_dark">#282539</color>
+    <color name="text_primary_dark">@color/neu_dark_text_primary</color>
+    <color name="text_secondary_dark">@color/neu_dark_text_secondary</color>
+    <color name="outline_dark">@color/neu_dark_outline</color>
+</resources>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:clipToPadding="false"
+    android:paddingBottom="100dp"
+    android:background="?android:attr/windowBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Active Recall &amp; Mastery"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Spaced retrieval &amp; structured self-assessment."
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary" />
+
+        <!-- Flashcard Container -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/outline_subtle"
+            app:cardBackgroundColor="@color/surface_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- Topic & Difficulty Badges -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tv_question_topic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_pill_badge"
+                        android:backgroundTint="@color/primary_purple_light"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="3dp"
+                        android:text="Java &amp; OOP"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_purple_deep" />
+
+                    <TextView
+                        android:id="@+id/tv_question_difficulty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_pill_badge"
+                        android:backgroundTint="@color/pastel_amber_bg"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="3dp"
+                        android:text="Medium"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/pastel_amber_accent" />
+                </LinearLayout>
+
+                <!-- Question Text -->
+                <TextView
+                    android:id="@+id/tv_question_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Explain the difference between method overloading and method overriding in Java."
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:lineSpacingExtra="3dp"
+                    android:textColor="@color/text_primary" />
+
+                <!-- Reveal Answer Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_reveal_answer"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Reveal Reference Answer"
+                    app:cornerRadius="24dp"
+                    app:strokeColor="@color/primary_purple"
+                    android:textColor="@color/primary_purple" />
+
+                <!-- Answer Content (Initially Hidden) -->
+                <LinearLayout
+                    android:id="@+id/layout_answer_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_marginTop="18dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/outline_subtle"
+                        android:layout_marginBottom="14dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reference Answer &amp; Rubric:"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_purple_deep" />
+
+                    <TextView
+                        android:id="@+id/tv_reference_answer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="Overloading occurs at compile-time within the same class (same method name, different signatures). Overriding occurs at runtime when a subclass provides a specific implementation of a method defined in its superclass."
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary" />
+
+                    <!-- Self Evaluation Prompt -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Self-Evaluation (Rate your comprehension):"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_secondary" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_eval_revision"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="4dp"
+                            android:text="Revision"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:cornerRadius="20dp"
+                            app:backgroundTint="@color/pastel_rose_bg"
+                            android:textColor="@color/status_error" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_eval_understood"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:layout_marginHorizontal="2dp"
+                            android:text="Understood"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:cornerRadius="20dp"
+                            app:backgroundTint="@color/pastel_amber_bg"
+                            android:textColor="@color/pastel_amber_accent" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_eval_mastered"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:layout_marginStart="4dp"
+                            android:text="Mastered"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:cornerRadius="20dp"
+                            app:backgroundTint="@color/pastel_cyan_bg"
+                            android:textColor="@color/status_success" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Next / Random Practice Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_next_question"
+            style="@style/Widget.AscendU.Button.Pill"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Next Practice Question"
+            app:backgroundTint="@color/primary_purple"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
