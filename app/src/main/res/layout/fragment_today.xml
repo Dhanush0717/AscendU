@@ -62,7 +62,7 @@
                     android:textColor="@color/stitch_text_primary"
                     android:textSize="@dimen/text_headline_lg"
                     android:textStyle="bold"
-                    tools:text="Today, Nanu 🚀" />
+                    tools:text="Today 🚀" />
             </LinearLayout>
 
             <ImageButton
