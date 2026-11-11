@@ -5,10 +5,10 @@
     android:id="@+id/main_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/neu_background"
+    android:background="@color/stitch_background"
     tools:context=".MainActivity">
 
-    <!-- Screen Content Container -->
+    <!-- Screen Content Container placed directly above the bottom navigation bar -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -16,24 +16,17 @@
         android:layout_height="0dp"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Neumorphic Soft Floating Navigation Dock -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_bottom_nav_container"
+    <!-- Material 3 Standard Anchored Bottom Navigation Bar -->
+    <FrameLayout
+        android:id="@+id/bottom_navigation_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="16dp"
-        app:cardCornerRadius="@dimen/neu_corner_hero"
-        app:cardElevation="@dimen/neu_elevation_floating_dock"
-        app:strokeWidth="@dimen/neu_stroke_subtle"
-        app:strokeColor="@color/neu_light_highlight"
-        app:cardBackgroundColor="@color/neu_surface"
+        android:background="@drawable/bg_nav_dock"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -41,7 +34,7 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
-            android:layout_height="66dp"
+            android:layout_height="wrap_content"
             android:background="@color/transparent"
             app:elevation="0dp"
             app:itemActiveIndicatorStyle="@style/Widget.AscendU.BottomNavIndicator"
@@ -52,6 +45,6 @@
             app:itemTextAppearanceInactive="@style/TextAppearance.Material3.LabelSmall"
             app:menu="@menu/bottom_nav_menu" />
 
-    </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

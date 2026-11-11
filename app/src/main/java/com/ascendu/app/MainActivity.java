@@ -20,7 +20,6 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import com.ascendu.app.databinding.ActivityMainBinding;
-import com.ascendu.app.notifications.AccountabilityHelper;
 import com.ascendu.app.ui.onboarding.OnboardingActivity;
 
 /**
@@ -57,18 +56,13 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Handle System Bar Insets gracefully:
+        // - Top status bar inset is applied to root view
+        // - Bottom gesture/navigation bar inset is applied as padding to the bottom_navigation_container
         ViewCompat.setOnApplyWindowInsetsListener(binding.mainRoot, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
-
-            // Responsive lift for the floating dock above system bars/gesture bar
-            if (binding.cardBottomNavContainer.getLayoutParams() instanceof android.view.ViewGroup.MarginLayoutParams) {
-                android.view.ViewGroup.MarginLayoutParams lp = 
-                        (android.view.ViewGroup.MarginLayoutParams) binding.cardBottomNavContainer.getLayoutParams();
-                int baseMargin = (int) (14 * getResources().getDisplayMetrics().density);
-                lp.bottomMargin = baseMargin + systemBars.bottom;
-                binding.cardBottomNavContainer.setLayoutParams(lp);
-            }
+            binding.bottomNavigationContainer.setPadding(0, 0, 0, systemBars.bottom);
             return insets;
         });
 
