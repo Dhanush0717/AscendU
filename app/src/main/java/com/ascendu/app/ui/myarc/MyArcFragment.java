@@ -7,8 +7,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,20 +17,18 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.ascendu.app.R;
+import com.ascendu.app.data.local.database.AppDatabase;
 import com.ascendu.app.data.local.entity.RecurringTask;
 import com.ascendu.app.data.local.entity.RecurringTaskOccurrence;
 import com.ascendu.app.data.local.entity.Task;
 import com.ascendu.app.data.model.MonthlyConsistencyStats;
-import com.ascendu.app.data.model.TaskMonthlyStats;
 import com.ascendu.app.data.repository.PlannerRepository;
 import com.ascendu.app.databinding.BottomSheetArcCellDetailBinding;
 import com.ascendu.app.databinding.FragmentMyArcBinding;
 import com.ascendu.app.util.AppExecutors;
 import com.ascendu.app.util.DateUtils;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.chip.Chip;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,6 +43,11 @@ import java.util.Set;
 
 /**
  * My Arc Module - Multi-Task Monthly Consistency Grid & Historical Discipline Analytics.
+ * Stitch Redesign System:
+ * - 3-Column Key Metric Cards (Current Streak, Record, Discipline %)
+ * - Month Navigation with summary counters (Done, Missed, Total, Best Day)
+ * - Synchronized Horizontal Scrolling Consistency Grid with Fixed Sticky Date Column
+ * - Manual Historical Occurrence Correction Modal (Completed, Missed, Auto)
  */
 public class MyArcFragment extends Fragment {
 
@@ -55,8 +58,7 @@ public class MyArcFragment extends Fragment {
     private List<RecurringTask> displayHabits = new ArrayList<>();
     private List<RecurringTaskOccurrence> monthOccurrences = new ArrayList<>();
     private final Map<String, RecurringTaskOccurrence> occurrenceMap = new HashMap<>(); // key: "taskId_dateString"
-
-    private long selectedHabitId = -1;
+    private final List<HorizontalScrollView> rowScrollViews = new ArrayList<>();
 
     @Nullable
     @Override
@@ -70,7 +72,6 @@ public class MyArcFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         repository = new PlannerRepository(requireActivity().getApplication());
 
-        // Default to current calendar month
         displayCalendar.set(Calendar.DAY_OF_MONTH, 1);
 
         initListeners();
@@ -91,7 +92,7 @@ public class MyArcFragment extends Fragment {
 
     private void loadMonthData() {
         SimpleDateFormat monthHeaderSdf = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
-        binding.tvArcMonthLabel.setText(monthHeaderSdf.format(displayCalendar.getTime()));
+        binding.tvCurrentMonthLabel.setText(monthHeaderSdf.format(displayCalendar.getTime()));
 
         SimpleDateFormat isoSdf = new SimpleDateFormat(DateUtils.FORMAT_ISO_DATE, Locale.getDefault());
         Calendar cal = (Calendar) displayCalendar.clone();
@@ -103,234 +104,234 @@ public class MyArcFragment extends Fragment {
         String endDate = isoSdf.format(cal.getTime());
 
         AppExecutors.getInstance().diskIO().execute(() -> {
-            // Fetch occurrences for this month
             List<RecurringTaskOccurrence> occurrences = repository.getOccurrencesBetweenDirect(startDate, endDate);
             List<RecurringTask> allTasks = repository.getAllRecurringTasksDirect();
 
-            // Compute streaks
             int currentStreak = repository.calculateCurrentStreak();
             int bestStreak = repository.calculateLongestStreak();
-
-            // Compute monthly stats
             MonthlyConsistencyStats monthStats = repository.calculateMonthlyStats(startDate, endDate);
 
-            // Filter relevant habits for this month:
-            // 1. Task is active, OR
-            // 2. Task has occurrences in this month (preserves historical archived commitments)
             Set<Long> taskIdsInMonth = new HashSet<>();
             for (RecurringTaskOccurrence occ : occurrences) {
                 taskIdsInMonth.add(occ.getRecurringTaskId());
             }
 
-            List<RecurringTask> relevantHabits = new ArrayList<>();
-            for (RecurringTask task : allTasks) {
-                if (task.isActive() || taskIdsInMonth.contains(task.getId())) {
-                    relevantHabits.add(task);
+            List<RecurringTask> activeOrHistoricalHabits = new ArrayList<>();
+            for (RecurringTask t : allTasks) {
+                if (t.isActive() || taskIdsInMonth.contains(t.getId())) {
+                    activeOrHistoricalHabits.add(t);
                 }
+            }
+
+            Collections.sort(activeOrHistoricalHabits, (o1, o2) -> {
+                if (o1.isImportant() != o2.isImportant()) {
+                    return o1.isImportant() ? -1 : 1;
+                }
+                return o1.getTitle().compareToIgnoreCase(o2.getTitle());
+            });
+
+            Map<String, RecurringTaskOccurrence> map = new HashMap<>();
+            for (RecurringTaskOccurrence occ : occurrences) {
+                map.put(occ.getRecurringTaskId() + "_" + occ.getDateString(), occ);
             }
 
             AppExecutors.getInstance().mainThread().execute(() -> {
                 if (!isAdded() || binding == null) return;
 
+                displayHabits = activeOrHistoricalHabits;
                 monthOccurrences = occurrences;
-                displayHabits = relevantHabits;
-
-                // Build fast lookup map
                 occurrenceMap.clear();
-                for (RecurringTaskOccurrence occ : occurrences) {
-                    occurrenceMap.put(occ.getRecurringTaskId() + "_" + occ.getDateString(), occ);
-                }
+                occurrenceMap.putAll(map);
 
-                // Update Key Metrics
+                // Update 3 Key Metric Cards
                 binding.tvArcCurrentStreak.setText("🔥 " + currentStreak);
                 binding.tvArcBestStreak.setText("⚡ " + bestStreak);
-                binding.tvArcConsistencyPct.setText(monthStats.getEligibleCount() > 0 ? (monthStats.getConsistencyPct() + "%") : "N/A");
+                binding.tvArcMonthlyPct.setText(monthStats.getEligibleCount() > 0 ? ("🎯 " + monthStats.getConsistencyPct() + "%") : "N/A");
 
-                // Update Monthly Counters
-                binding.tvMonthlyCompleted.setText("✓ " + monthStats.getCompletedCount() + " Done");
-                binding.tvMonthlyMissed.setText("✗ " + monthStats.getMissedCount() + " Missed");
-                binding.tvMonthlyEligible.setText("📋 " + monthStats.getEligibleCount() + " Scheduled");
-                binding.tvMonthlyBestDay.setText("⭐ Best: " + monthStats.getBestDayOfWeek());
+                // Update Month Summary Chips
+                binding.tvMonthDoneCount.setText("✅ " + monthStats.getCompletedCount() + " Done");
+                binding.tvMonthMissedCount.setText("⚠️ " + monthStats.getMissedCount() + " Missed");
+                binding.tvMonthTotalCount.setText("📊 " + monthStats.getEligibleCount() + " Total");
+                binding.tvMonthBestDay.setText("⭐ Best: " + monthStats.getBestDayOfWeek());
 
-                // Build Grid
-                renderConsistencyGrid(startDate, endDate, maxDay);
-
-                // Populate Habit Selector Chips & Task Stats
-                setupHabitSelectorChips(startDate, endDate);
+                // Build Matrix
+                buildConsistencyGrid(startDate, endDate);
             });
         });
     }
 
-    private void renderConsistencyGrid(String startDate, String endDate, int maxDay) {
-        binding.tableConsistencyGrid.removeAllViews();
+    private void buildConsistencyGrid(String startDate, String endDate) {
+        binding.llHabitColumnHeaders.removeAllViews();
+        binding.llGridRowsContainer.removeAllViews();
+        rowScrollViews.clear();
 
         if (displayHabits.isEmpty()) {
-            binding.gridHorizontalScroll.setVisibility(View.GONE);
-            binding.layoutGridEmpty.setVisibility(View.VISIBLE);
+            binding.scrollHeaderHabits.setVisibility(View.GONE);
+            binding.llArcEmptyState.setVisibility(View.VISIBLE);
             return;
         }
 
-        binding.gridHorizontalScroll.setVisibility(View.VISIBLE);
-        binding.layoutGridEmpty.setVisibility(View.GONE);
+        binding.scrollHeaderHabits.setVisibility(View.VISIBLE);
+        binding.llArcEmptyState.setVisibility(View.GONE);
 
-        // Density scale for dp to px
-        float density = getResources().getDisplayMetrics().density;
-        int cellPadding = (int) (6 * density);
-        int dateColWidth = (int) (70 * density);
-        int habitColWidth = (int) (80 * density);
-        int cellSize = (int) (28 * density);
+        int columnWidth = (int) (76 * getResources().getDisplayMetrics().density);
 
-        // Header Row (Top)
-        TableRow headerRow = new TableRow(requireContext());
-        headerRow.setPadding(0, 0, 0, (int) (8 * density));
-
-        // Corner cell: "Date"
-        TextView tvDateHeader = new TextView(requireContext());
-        tvDateHeader.setText("Date");
-        tvDateHeader.setTextSize(12);
-        tvDateHeader.setTypeface(null, Typeface.BOLD);
-        tvDateHeader.setTextColor(ContextCompat.getColor(requireContext(), R.color.neu_text_secondary));
-        tvDateHeader.setGravity(Gravity.CENTER);
-        TableRow.LayoutParams dateParams = new TableRow.LayoutParams(dateColWidth, TableRow.LayoutParams.WRAP_CONTENT);
-        headerRow.addView(tvDateHeader, dateParams);
-
-        // Column for each habit
+        // Populate Habit Column Headers
         for (RecurringTask habit : displayHabits) {
-            TextView tvHabitHeader = new TextView(requireContext());
-            tvHabitHeader.setText(habit.getTitle());
-            tvHabitHeader.setTextSize(11);
-            tvHabitHeader.setTypeface(null, Typeface.BOLD);
-            tvHabitHeader.setTextColor(ContextCompat.getColor(requireContext(), R.color.neu_text_primary));
-            tvHabitHeader.setGravity(Gravity.CENTER);
-            tvHabitHeader.setMaxLines(2);
-            tvHabitHeader.setEllipsize(android.text.TextUtils.TruncateAt.END);
-            tvHabitHeader.setPadding((int) (4 * density), 0, (int) (4 * density), 0);
-
-            TableRow.LayoutParams habitParams = new TableRow.LayoutParams(habitColWidth, TableRow.LayoutParams.WRAP_CONTENT);
-            headerRow.addView(tvHabitHeader, habitParams);
+            TextView headerCell = new TextView(requireContext());
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(columnWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(4, 0, 4, 0);
+            headerCell.setLayoutParams(lp);
+            headerCell.setGravity(Gravity.CENTER);
+            headerCell.setText(habit.getTitle());
+            headerCell.setTextColor(ContextCompat.getColor(requireContext(), R.color.stitch_text_primary));
+            headerCell.setTextSize(11);
+            headerCell.setTypeface(Typeface.DEFAULT_BOLD);
+            headerCell.setSingleLine(true);
+            headerCell.setEllipsize(android.text.TextUtils.TruncateAt.END);
+            binding.llHabitColumnHeaders.addView(headerCell);
         }
-        binding.tableConsistencyGrid.addView(headerRow);
 
-        // Calendar Date Rows
-        SimpleDateFormat isoSdf = new SimpleDateFormat(DateUtils.FORMAT_ISO_DATE, Locale.getDefault());
-        SimpleDateFormat rowDateDisplaySdf = new SimpleDateFormat("dd MMM", Locale.getDefault());
-        String todayIso = DateUtils.getTodayDateString();
-        String currentTime = DateUtils.getCurrentTime24H();
+        // Generate Dates in descending order (Today/Latest first)
+        List<String> monthDates = generateMonthDatesDescending(startDate, endDate);
 
-        Calendar rowCal = (Calendar) displayCalendar.clone();
+        String todayIso = DateUtils.getTodayIso();
+        SimpleDateFormat daySdf = new SimpleDateFormat("EEE, dd", Locale.getDefault());
+        SimpleDateFormat isoFormat = new SimpleDateFormat(DateUtils.FORMAT_ISO_DATE, Locale.getDefault());
 
-        for (int day = 1; day <= maxDay; day++) {
-            rowCal.set(Calendar.DAY_OF_MONTH, day);
-            String rowDateIso = isoSdf.format(rowCal.getTime());
-            String rowDateDisplay = rowDateDisplaySdf.format(rowCal.getTime());
-            boolean isToday = rowDateIso.equals(todayIso);
-
-            TableRow dayRow = new TableRow(requireContext());
+        for (String dateIso : monthDates) {
+            LinearLayout dayRow = new LinearLayout(requireContext());
+            dayRow.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            dayRow.setOrientation(LinearLayout.HORIZONTAL);
             dayRow.setGravity(Gravity.CENTER_VERTICAL);
-            dayRow.setPadding(0, (int) (4 * density), 0, (int) (4 * density));
+            dayRow.setPadding(0, 4, 0, 4);
 
+            boolean isToday = dateIso.equals(todayIso);
             if (isToday) {
-                dayRow.setBackgroundResource(R.drawable.bg_row_today_highlight);
+                dayRow.setBackgroundResource(R.drawable.bg_stitch_chip_inactive);
             }
 
-            // Date label
-            TextView tvDate = new TextView(requireContext());
-            tvDate.setText(rowDateDisplay);
-            tvDate.setTextSize(11);
-            tvDate.setTextColor(ContextCompat.getColor(requireContext(), isToday ? R.color.neu_primary_violet : R.color.neu_text_secondary));
-            if (isToday) {
-                tvDate.setTypeface(null, Typeface.BOLD);
-            }
-            tvDate.setGravity(Gravity.CENTER);
-            TableRow.LayoutParams rowDateParams = new TableRow.LayoutParams(dateColWidth, TableRow.LayoutParams.MATCH_PARENT);
-            dayRow.addView(tvDate, rowDateParams);
+            // Fixed Sticky Date Column
+            TextView dateLabel = new TextView(requireContext());
+            dateLabel.setLayoutParams(new LinearLayout.LayoutParams((int) (60 * getResources().getDisplayMetrics().density), ViewGroup.LayoutParams.WRAP_CONTENT));
+            dateLabel.setGravity(Gravity.CENTER_VERTICAL);
+            dateLabel.setTextColor(ContextCompat.getColor(requireContext(), isToday ? R.color.stitch_primary : R.color.stitch_text_secondary));
+            dateLabel.setTextSize(11);
+            dateLabel.setTypeface(isToday ? Typeface.DEFAULT_BOLD : Typeface.DEFAULT);
 
-            // Cells for each habit
+            try {
+                Date d = isoFormat.parse(dateIso);
+                if (d != null) {
+                    dateLabel.setText(daySdf.format(d));
+                } else {
+                    dateLabel.setText(dateIso.substring(5));
+                }
+            } catch (Exception e) {
+                dateLabel.setText(dateIso.substring(5));
+            }
+            dayRow.addView(dateLabel);
+
+            // Horizontally Scrollable Cells Container
+            HorizontalScrollView cellScrollView = new HorizontalScrollView(requireContext());
+            cellScrollView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            cellScrollView.setHorizontalScrollBarEnabled(false);
+            cellScrollView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
+            LinearLayout cellsContainer = new LinearLayout(requireContext());
+            cellsContainer.setOrientation(LinearLayout.HORIZONTAL);
+
             for (RecurringTask habit : displayHabits) {
-                View cellContainer = createGridCell(habit, rowDateIso, isToday, todayIso, currentTime, cellSize, density);
-                TableRow.LayoutParams cellParams = new TableRow.LayoutParams(habitColWidth, TableRow.LayoutParams.WRAP_CONTENT);
-                cellParams.gravity = Gravity.CENTER;
-                dayRow.addView(cellContainer, cellParams);
+                View cellView = createCellView(habit, dateIso, isToday, columnWidth);
+                cellsContainer.addView(cellView);
             }
 
-            binding.tableConsistencyGrid.addView(dayRow);
+            cellScrollView.addView(cellsContainer);
+            dayRow.addView(cellScrollView);
+
+            // Sync scrolling with header and sibling rows
+            rowScrollViews.add(cellScrollView);
+            cellScrollView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+                binding.scrollHeaderHabits.scrollTo(scrollX, scrollY);
+                for (HorizontalScrollView sv : rowScrollViews) {
+                    if (sv != v) {
+                        sv.scrollTo(scrollX, scrollY);
+                    }
+                }
+            });
+
+            binding.llGridRowsContainer.addView(dayRow);
         }
+
+        // Header syncs with all rows
+        binding.scrollHeaderHabits.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            for (HorizontalScrollView sv : rowScrollViews) {
+                sv.scrollTo(scrollX, scrollY);
+            }
+        });
     }
 
-    private View createGridCell(RecurringTask habit, String dateIso, boolean isToday, String todayIso, String currentTime, int cellSize, float density) {
+    private List<String> generateMonthDatesDescending(String startDate, String endDate) {
+        List<String> dates = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat(DateUtils.FORMAT_ISO_DATE, Locale.getDefault());
+        try {
+            Date start = sdf.parse(startDate);
+            Date end = sdf.parse(endDate);
+            if (start != null && end != null) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(end);
+                while (!cal.getTime().before(start)) {
+                    dates.add(sdf.format(cal.getTime()));
+                    cal.add(Calendar.DAY_OF_MONTH, -1);
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return dates;
+    }
+
+    private View createCellView(RecurringTask habit, String dateIso, boolean isToday, int columnWidth) {
         LinearLayout container = new LinearLayout(requireContext());
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(columnWidth, (int) (36 * getResources().getDisplayMetrics().density));
+        lp.setMargins(4, 2, 4, 2);
+        container.setLayoutParams(lp);
         container.setGravity(Gravity.CENTER);
-        container.setPadding(0, (int) (2 * density), 0, (int) (2 * density));
 
         View cellView = new View(requireContext());
-        LinearLayout.LayoutParams cellParams = new LinearLayout.LayoutParams(cellSize, cellSize);
-        cellView.setLayoutParams(cellParams);
+        int cellSize = (int) (28 * getResources().getDisplayMetrics().density);
+        cellView.setLayoutParams(new LinearLayout.LayoutParams(cellSize, cellSize));
 
-        // Check occurrence status in Room
         String key = habit.getId() + "_" + dateIso;
         RecurringTaskOccurrence occ = occurrenceMap.get(key);
 
-        // Historical creation protection: check if date is before task creation
-        String taskCreatedDateIso = DateUtils.formatDateString(habit.getCreatedAt());
-        boolean isBeforeCreation = dateIso.compareTo(taskCreatedDateIso) < 0;
-
-        boolean isScheduledDay = DateUtils.isDayScheduled(habit.getDaysOfWeekBitmask(), dateIso);
         int cellBgRes;
-        String statusTooltip;
+        String statusDescription;
 
         if (occ != null) {
-            if (Task.STATUS_COMPLETED.equals(occ.getStatus())) {
-                cellBgRes = R.drawable.bg_cell_completed; // Green
-                statusTooltip = "Completed";
-            } else if (Task.STATUS_CANCELLED.equals(occ.getStatus())) {
-                cellBgRes = R.drawable.bg_cell_neutral; // Cancelled
-                statusTooltip = "Cancelled";
+            if (Task.STATUS_COMPLETED.equalsIgnoreCase(occ.getStatus())) {
+                cellBgRes = R.drawable.bg_stitch_cell_completed;
+                statusDescription = "Completed";
+            } else if (Task.STATUS_MISSED.equalsIgnoreCase(occ.getStatus())) {
+                cellBgRes = R.drawable.bg_stitch_cell_missed;
+                statusDescription = "Missed";
+            } else if ("SKIPPED".equalsIgnoreCase(occ.getStatus())) {
+                cellBgRes = R.drawable.bg_stitch_cell_rest;
+                statusDescription = "Rest Day";
             } else {
-                // Status is UPCOMING / PENDING / MISSED
-                if (dateIso.compareTo(todayIso) > 0) {
-                    cellBgRes = R.drawable.bg_cell_future; // Grey (Future)
-                    statusTooltip = "Future (Due)";
-                } else if (dateIso.compareTo(todayIso) < 0) {
-                    cellBgRes = R.drawable.bg_cell_missed; // Red (Past date missed)
-                    statusTooltip = "Missed";
-                } else {
-                    // Today
-                    boolean timePassed = DateUtils.isTimePast(habit.getEndTime(), currentTime);
-                    if (timePassed) {
-                        cellBgRes = R.drawable.bg_cell_missed; // Red (Deadline passed)
-                        statusTooltip = "Missed (Deadline passed)";
-                    } else {
-                        cellBgRes = R.drawable.bg_cell_future; // Pending today
-                        statusTooltip = "Pending Today";
-                    }
-                }
+                cellBgRes = isToday ? R.drawable.bg_stitch_badge_neutral : R.drawable.bg_stitch_cell_future;
+                statusDescription = isToday ? "Pending Today" : "Scheduled";
             }
         } else {
-            // No occurrence record in database
-            if (isBeforeCreation || !isScheduledDay) {
-                cellBgRes = R.drawable.bg_cell_neutral; // Not scheduled / Rest
-                statusTooltip = "Rest / Not Scheduled";
-            } else if (dateIso.compareTo(todayIso) > 0) {
-                cellBgRes = R.drawable.bg_cell_future; // Future scheduled
-                statusTooltip = "Scheduled (Future)";
-            } else if (dateIso.compareTo(todayIso) < 0) {
-                cellBgRes = R.drawable.bg_cell_missed; // Unbackfilled past scheduled day
-                statusTooltip = "Missed";
-            } else {
-                cellBgRes = R.drawable.bg_cell_future;
-                statusTooltip = "Today";
-            }
+            cellBgRes = R.drawable.bg_stitch_cell_rest;
+            statusDescription = "Rest / Not Scheduled";
         }
 
         cellView.setBackgroundResource(cellBgRes);
 
-        // Click interaction: show cell history details
         final RecurringTaskOccurrence finalOcc = occ;
-        final String finalTooltip = statusTooltip;
-        final int finalBgRes = cellBgRes;
+        final String finalDesc = statusDescription;
+        final int finalBg = cellBgRes;
 
-        container.setOnClickListener(v -> showCellDetailBottomSheet(habit, dateIso, finalOcc, finalTooltip, finalBgRes));
-
+        container.setOnClickListener(v -> showCellDetailBottomSheet(habit, dateIso, finalOcc, finalDesc, finalBg));
         container.addView(cellView);
         return container;
     }
@@ -355,78 +356,40 @@ public class MyArcFragment extends Fragment {
             sheetBinding.tvDetailCompletedAt.setVisibility(View.GONE);
         }
 
+        // Manual Correction Actions
+        sheetBinding.btnMarkCompleted.setOnClickListener(v -> {
+            if (occ != null) {
+                repository.toggleOccurrenceCompletion(occ, true, this::loadMonthData);
+            }
+            dialog.dismiss();
+        });
+
+        sheetBinding.btnMarkMissed.setOnClickListener(v -> {
+            if (occ != null) {
+                AppExecutors.getInstance().diskIO().execute(() -> {
+                    AppDatabase.getInstance(requireContext())
+                            .recurringTaskOccurrenceDao()
+                            .updateStatus(occ.getId(), Task.STATUS_MISSED, 0);
+                    AppExecutors.getInstance().mainThread().execute(this::loadMonthData);
+                });
+            }
+            dialog.dismiss();
+        });
+
+        sheetBinding.btnResetAutomatic.setOnClickListener(v -> {
+            if (occ != null) {
+                AppExecutors.getInstance().diskIO().execute(() -> {
+                    AppDatabase.getInstance(requireContext())
+                            .recurringTaskOccurrenceDao()
+                            .updateStatus(occ.getId(), Task.STATUS_UPCOMING, 0);
+                    AppExecutors.getInstance().mainThread().execute(this::loadMonthData);
+                });
+            }
+            dialog.dismiss();
+        });
+
         sheetBinding.btnDetailClose.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
-    }
-
-    private void setupHabitSelectorChips(String startDate, String endDate) {
-        binding.chipGroupHabits.removeAllViews();
-
-        if (displayHabits.isEmpty()) {
-            binding.cardHabitStats.setVisibility(View.GONE);
-            return;
-        }
-
-        binding.cardHabitStats.setVisibility(View.VISIBLE);
-
-        if (selectedHabitId == -1 || !containsHabitId(displayHabits, selectedHabitId)) {
-            selectedHabitId = displayHabits.get(0).getId();
-        }
-
-        for (RecurringTask habit : displayHabits) {
-            Chip chip = new Chip(requireContext());
-            chip.setText(habit.getTitle());
-            chip.setCheckable(true);
-            chip.setChecked(habit.getId() == selectedHabitId);
-            chip.setChipBackgroundColorResource(R.color.neu_surface);
-            chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.neu_text_primary));
-
-            chip.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if (isChecked) {
-                    selectedHabitId = habit.getId();
-                    loadHabitStats(habit, startDate, endDate);
-                }
-            });
-
-            binding.chipGroupHabits.addView(chip);
-        }
-
-        // Load initially selected habit
-        RecurringTask initialHabit = getHabitById(displayHabits, selectedHabitId);
-        if (initialHabit != null) {
-            loadHabitStats(initialHabit, startDate, endDate);
-        }
-    }
-
-    private void loadHabitStats(RecurringTask habit, String startDate, String endDate) {
-        binding.tvHabitDetailTitle.setText(habit.getTitle());
-        String timeSchedule = DateUtils.format12HourTime(habit.getStartTime()) + " - " + DateUtils.format12HourTime(habit.getEndTime()) + " • " + DateUtils.getBitmaskDaysLabel(habit.getDaysOfWeekBitmask());
-        binding.tvHabitDetailSchedule.setText(timeSchedule);
-
-        AppExecutors.getInstance().diskIO().execute(() -> {
-            TaskMonthlyStats stats = repository.calculateTaskStats(habit.getId(), startDate, endDate);
-            AppExecutors.getInstance().mainThread().execute(() -> {
-                if (!isAdded() || binding == null) return;
-                binding.tvHabitDetailPct.setText(stats.getEligibleCount() > 0 ? (stats.getConsistencyPct() + "%") : "N/A");
-                binding.tvHabitDetailCompleted.setText(String.valueOf(stats.getCompletedCount()));
-                binding.tvHabitDetailMissed.setText(String.valueOf(stats.getMissedCount()));
-                binding.tvHabitDetailBestDay.setText(stats.getBestDayOfWeek());
-            });
-        });
-    }
-
-    private boolean containsHabitId(List<RecurringTask> habits, long id) {
-        for (RecurringTask h : habits) {
-            if (h.getId() == id) return true;
-        }
-        return false;
-    }
-
-    private RecurringTask getHabitById(List<RecurringTask> habits, long id) {
-        for (RecurringTask h : habits) {
-            if (h.getId() == id) return h;
-        }
-        return habits.isEmpty() ? null : habits.get(0);
     }
 
     @Override
