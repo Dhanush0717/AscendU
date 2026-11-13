@@ -56,7 +56,7 @@ com.ascendu.app/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- **Android Studio**: Ladybug / Hedgehog or newer
+- **Android Studio**
 - **JDK**: Java 17
 - **Android SDK**: API 34 (Android 14)
 
